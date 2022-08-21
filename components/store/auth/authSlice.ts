@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserState } from '../../../utils/types';
-import { getUser, login, logout, signup } from './authService';
+import { getUser, login, logout, signup } from './authReducer';
 
 const initialState: UserState = {
   user: null,
@@ -17,13 +17,13 @@ const authSlice = createSlice({
       state.status = 'loading';
       state.error = null;
     });
-    builder.addCase(signup.fulfilled, (state) => {
-      // state.user = payload.user;
+    builder.addCase(signup.fulfilled, (state, { payload }) => {
+      state.user = payload.user;
       state.status = 'idle';
     });
 
     builder.addCase(signup.rejected, (state, { payload }) => {
-      if (payload) state.error = 'User is not logged in';
+      if (payload) state.error = 'Registration failed';
       state.status = 'idle';
     });
 
@@ -38,7 +38,7 @@ const authSlice = createSlice({
     });
 
     builder.addCase(login.rejected, (state, { payload }) => {
-      if (payload) state.error = 'Registration failed';
+      if (payload) state.error = 'Sign in failed';
       state.status = 'idle';
     });
 

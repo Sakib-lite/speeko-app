@@ -5,62 +5,47 @@ import {
   RegisterFormType,
   User,
 } from '../../../utils/types';
-import Snackbar from '../../../utils/notistack'
+import Snackbar from '../../../utils/notistack';
+import AuthService from './auth.service';
 
-const URL='http://localhost:5000'
 
 export const signup = createAsyncThunk(
   'auth/signup',
   async (formData: RegisterFormType, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch(`${URL}/auth/signup`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await AuthService.signupAPI(formData);
 
       const data = await response.json();
-      if (data.status==='success') {
+      if (data.status === 'success') {
         const { email, password } = formData;
         const userData = { email, password };
         return dispatch(login(userData));
       }
 
+      if (response.ok === false) throw new Error(`${data.message}`);
       return data;
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+    
+      Snackbar.error(err.message);
       return rejectWithValue({
         message: 'Failed to Login',
       });
     }
   }
 );
-
 export const login = createAsyncThunk(
   'auth/login',
   async (formData: LoginFormType, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${URL}/auth/login`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      console.log('  data', data)
-      if (data.status==='success') {
-  Snackbar.success(data.message)
+      const data = await AuthService.loginAPI(formData);
+      if (data.status === 'success') {
+        Snackbar.success(data.message);
       }
 
       return data;
     } catch (err) {
-      Snackbar.error('Wrong email or password')
+      Snackbar.error('Wrong email or password');
       return rejectWithValue({
         message: 'Failed to Login',
       });
@@ -74,11 +59,7 @@ export const getUser = createAsyncThunk<{
   rejectValue: FormError;
 }>('auth/getUser', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch(`${URL}/auth/user`, {
-      credentials: 'include',
-    });
-    const data = await response.json();
-    return data;
+    return await AuthService.getUserAPI();
   } catch (err) {
     console.log(err);
     return rejectWithValue({
@@ -93,16 +74,13 @@ export const logout = createAsyncThunk<{
   rejectValue: FormError;
 }>('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch(`${URL}/auth/logout`, {
-      credentials: 'include',
-    });
-    const data = await response.json();
-    if (data.status==='success') {
-      Snackbar.success(data.message)
-          }
+    const data = await AuthService.logoutAPI();
+    if (data.status === 'success') {
+      Snackbar.success(data.message);
+    }
     return data;
   } catch (err) {
-    Snackbar.error('Something went wrong')
+    Snackbar.error('Something went wrong');
     return rejectWithValue({
       message: 'Something went wrong',
     });
