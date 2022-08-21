@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './auth/authSlice';
+import uiSlice from './ui/uiSlice';
+import friendsSlice from './friends/friendsSlice'
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
+    ui:uiSlice,
+    friends:friendsSlice
   },
 });
 
