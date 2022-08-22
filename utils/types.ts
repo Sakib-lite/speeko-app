@@ -41,3 +41,18 @@ export type UserState = {
   error: string | null;
   user: User | null;
 };
+
+
+export type FriendSlice={
+  friends: [],
+  pendingInvitations: [],
+  activeFriends: [],
+}
+
+export type Invitation={
+  email: FormDataEntryValue | null;
+}
+
+export type UiSlice={
+  invitationModal:boolean
+}

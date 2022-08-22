@@ -8,6 +8,10 @@ import createEmotionCache from '../utils/createEmotionCache';
 import lightTheme from '../utils/mui/theme';
 import ClientOnly from '../components/ClientOnly';
 import '../styles/globals.css';
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './../components/store/store';
+import { SnackbarProvider } from 'notistack';
+import { SnackbarUtilsConfigurator } from '../utils/notistack';
 
 const clientSideEmotionCache = createEmotionCache();
 const generateClassName = createGenerateClassName({
@@ -33,14 +37,20 @@ const MyApp = (props: {
     <Fragment>
       <StyledEngineProvider injectFirst>
         <ClientOnly>
-          <CacheProvider value={emotionCache}>
-            <ThemeProvider theme={lightTheme}>
-              <CssBaseline />
-              <StylesProvider generateClassName={generateClassName}>
-                <Component {...pageProps} />
-              </StylesProvider>
-            </ThemeProvider>
-          </CacheProvider>
+          <ReduxProvider store={store}>
+            {' '}
+            <CacheProvider value={emotionCache}>
+              <ThemeProvider theme={lightTheme}>
+                <CssBaseline />
+                <StylesProvider generateClassName={generateClassName}>
+                  <SnackbarProvider>
+                    {' '}
+                    <SnackbarUtilsConfigurator /> <Component {...pageProps} />
+                  </SnackbarProvider>
+                </StylesProvider>
+              </ThemeProvider>
+            </CacheProvider>
+          </ReduxProvider>
         </ClientOnly>
       </StyledEngineProvider>
     </Fragment>

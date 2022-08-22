@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { FriendSlice } from '../../../utils/types';
 
 
 const initialState: FriendSlice = {

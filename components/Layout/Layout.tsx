@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -16,11 +16,19 @@ import {
   useStyles,
 } from './../../utils/mui/styles';
 import RoomList from '../Rooms/RoomList';
+import HiddenColumn from '../SideBar/HiddenColumn';
+import Header from './Header';
+import Link from 'next/link';
+import { useAppDispatch, useAppSelector} from '../store/hooks';
+import { getUser } from '../store/auth/authReducer';
+import InviteFriendModal from '../Modal/InviteFriendModal';
+import { connectToSocketServer } from '../../utils/socket-client/socketConnections';
 
-const Layout: React.FC<Props> = ({ children }) => {
+ const Layout: React.FC<Props> = ({ children }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(true);
-
+  const dispatch = useAppDispatch();
+const user= useAppSelector(state=>state.auth.user)
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -29,10 +37,15 @@ const Layout: React.FC<Props> = ({ children }) => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    dispatch(getUser());
+    if(user)connectToSocketServer(user)
+  }, []);
+
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }} className='bg-gray-300 min-h-screen'>
       {/* header starts */}
-      <AppBar position='fixed' open={open} className='  bg-gray-400'>
+      <AppBar position='fixed' open={open} className='  bg-gray-200'>
         <Toolbar>
           <IconButton
             color='inherit'
@@ -46,9 +59,17 @@ const Layout: React.FC<Props> = ({ children }) => {
           >
             <DuoIcon />
           </IconButton>
-          <Typography variant='h6' noWrap component='div'>
-            Speeko
-          </Typography>
+          <Link href='/' passHref>
+            <Typography
+              variant='h6'
+              noWrap
+              component='div'
+              className='cursor-pointer text-gray-800'
+            >
+              Speeko
+            </Typography>
+          </Link>
+          <Header />
         </Toolbar>
       </AppBar>
       {/* header ends */}
@@ -77,17 +98,20 @@ const Layout: React.FC<Props> = ({ children }) => {
             <Divider />
           </div>
 
-          <div className=' w-full bg-gray-500 '></div>
+          <div className=' w-full bg-gray-200 '>
+            <HiddenColumn />
+          </div>
         </div>
       </Drawer>
       {/* drawer ends */}
-      <Box component='main'>
+      <Box component='main' className='mx-auto'>
         <Toolbar />
         {/* <DrawerHeader /> */}
         {children}
+   { user &&    <InviteFriendModal/>}
       </Box>
     </Box>
   );
 };
 
-export default Layout;
+export default  Layout

@@ -11,7 +11,7 @@ export const useStyles = makeStyles(() => ({
     minHeight: '80vh',
   },
   paper: {
-    background: "#778c96"
+    background: "#afc0c0"
   }
 }));
 
