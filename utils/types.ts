@@ -46,7 +46,7 @@ export type UserState = {
 export type FriendSlice={
   friends: [],
   pendingInvitations: [],
-  activeFriends: [],
+  onlineUsers: [],
 }
 
 export type Invitation={
@@ -56,3 +56,18 @@ export type Invitation={
 export type UiSlice={
   invitationModal:boolean
 }
+
+export type Friend = {
+  _id?: string;
+  name: string;
+  id: string;
+  email: string;
+  isOnline?:boolean
+};
+export type FriendObj = {
+  _id: string;
+  senderId: Friend;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};

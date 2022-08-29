@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 // THIS OBJECT SHOULD BE SIMILAR TO ./helpers/theme.js
@@ -56,7 +57,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      display: ["group-hover"]
+    },
   },
   plugins: [],
 };

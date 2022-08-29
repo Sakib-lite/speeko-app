@@ -4,6 +4,8 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
 import { StyledEngineProvider } from '@mui/material/styles';
+import Collapse from '@mui/material/Collapse';
+import Grow from '@mui/material/Grow';
 import createEmotionCache from '../utils/createEmotionCache';
 import lightTheme from '../utils/mui/theme';
 import ClientOnly from '../components/ClientOnly';
@@ -43,7 +45,12 @@ const MyApp = (props: {
               <ThemeProvider theme={lightTheme}>
                 <CssBaseline />
                 <StylesProvider generateClassName={generateClassName}>
-                  <SnackbarProvider>
+                  <SnackbarProvider    maxSnack={3}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  TransitionComponent={Grow}>
                     {' '}
                     <SnackbarUtilsConfigurator /> <Component {...pageProps} />
                   </SnackbarProvider>

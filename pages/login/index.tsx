@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
 import Login from '../../components/Form/Login';
-import Layout from '../../components/Layout/Layout';
 import { NextPage } from 'next';
 import { useAppSelector } from '../../components/store/hooks';
 import { useRouter } from 'next/router';
@@ -14,9 +13,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <Fragment>
-      <Layout>
-        <Login />
-      </Layout>
+      <Login />
     </Fragment>
   );
 };

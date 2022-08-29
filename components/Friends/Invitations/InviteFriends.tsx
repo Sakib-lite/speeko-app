@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import Button from '@mui/material/Button';
-import { uiActions } from '../store/ui/uiSlice';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import Snackbar from '../../utils/notistack';
+import { uiActions } from '../../store/ui/uiSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import Snackbar from '../../../utils/notistack';
 
 const InviteFriends: React.FC = () => {
   const dispatch = useAppDispatch();

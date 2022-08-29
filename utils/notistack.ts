@@ -20,6 +20,6 @@ export default {
     this.toast(msg, 'error')
   },
   toast(msg: string, variant: VariantType = 'default') {
-    useSnackbarRef.enqueueSnackbar(msg, { variant ,    autoHideDuration: 1000})
+    useSnackbarRef.enqueueSnackbar(msg, { variant ,    autoHideDuration: 1800})
   }
 }

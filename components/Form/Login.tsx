@@ -109,7 +109,7 @@ export default function Login() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href='/signup' passHref>
+              <Link href='/register' passHref>
                 <a className='text-blue-500 darK:text-blue-500 hover:text-blue-800'>
                   {"Don't have an account? Sign Up"}
                 </a>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -19,16 +19,19 @@ import RoomList from '../Rooms/RoomList';
 import HiddenColumn from '../SideBar/HiddenColumn';
 import Header from './Header';
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector} from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getUser } from '../store/auth/authReducer';
 import InviteFriendModal from '../Modal/InviteFriendModal';
-import { connectToSocketServer } from '../../utils/socket-client/socketConnections';
+import { connectToSocketServer } from '../socket-client/socketConnections';
+import { useRouter } from 'next/router';
 
- const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = ({ children }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(true);
   const dispatch = useAppDispatch();
-const user= useAppSelector(state=>state.auth.user)
+  const user = useAppSelector((state) => state.auth.user);
+  const router = useRouter();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -38,8 +41,18 @@ const user= useAppSelector(state=>state.auth.user)
   };
 
   useEffect(() => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+  }, [user]);
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
     dispatch(getUser());
-    if(user)connectToSocketServer(user)
+    connectToSocketServer(user);
   }, []);
 
   return (
@@ -108,10 +121,10 @@ const user= useAppSelector(state=>state.auth.user)
         <Toolbar />
         {/* <DrawerHeader /> */}
         {children}
-   { user &&    <InviteFriendModal/>}
+        {user && <InviteFriendModal />}
       </Box>
     </Box>
   );
 };
 
-export default  Layout
+export default Layout;
