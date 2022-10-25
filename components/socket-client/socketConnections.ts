@@ -1,8 +1,9 @@
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import io, { Socket } from 'socket.io-client';
 import store from '../store/store';
-import { User } from '../../utils/types';
+import { PrivateMessageType, User } from '../../utils/types';
 import { friendsActions } from '../store/friends/friendsSlice';
+import { chatActions } from '../store/chat/chatSlice';
 
 let socket: Socket<DefaultEventsMap, DefaultEventsMap> | null = null;
 
@@ -32,8 +33,20 @@ export const connectToSocketServer = (user: User) => {
     const { onlineUsers } = data;
     store.dispatch(friendsActions.getOnlineUsers(onlineUsers));
   });
-
-  socket.on("disconnect", () => {
+  socket.on('private-chat-history', (data) => {
+    store.dispatch(chatActions.getMessages(data));
+  });
+  socket.on('disconnect', () => {
     console.log(socket?.id); // undefined
   });
+};
+
+export const sendPrivateMessage = (data: PrivateMessageType) => {
+  if (socket) socket.emit('private-message', data);
+  console.log('  data', data);
+};
+
+export const privateChatHistory = (receiverId: string) => {
+  if (socket) socket.emit('private-chat-history', receiverId);
+  // console.log('  receiverId', receiverId)
 };

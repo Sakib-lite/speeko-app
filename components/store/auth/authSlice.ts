@@ -65,6 +65,7 @@ const authSlice = createSlice({
     builder.addCase(logout.fulfilled, (state, { payload }) => {
       state.user = payload.user;
       state.status = 'idle';
+      window.location.reload();
     });
 
     builder.addCase(logout.rejected, (state, { payload }) => {

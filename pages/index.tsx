@@ -2,17 +2,20 @@ import React, { Fragment } from 'react';
 import type { NextPage } from 'next';
 import Layout from '../components/Layout/Layout';
 import { useAppSelector } from '../components/store/hooks';
+import Messenger from '../components/Chat/Messanger/Messenger';
+import ChatIcon from '../components/Chat/Messanger/ChatIcon';
 
 const Home: NextPage = () => {
 
-const user=useAppSelector(state=>state.auth?.user)
+const receiver=useAppSelector(state=>state.chat?.receiver)
 
   return (
     <Fragment>
       <div className='h-full w-full'>
         <Layout>
           <div className='mt-10'>
-            {user?.name}
+     {receiver ? <Messenger/> :<ChatIcon/>}      
+     
           </div>
         </Layout>
       </div>

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import ChatBar from '../Friends/Chat/ChatBar';
+import ChatList from '../Chat/ChatList';
 import Invitations from '../Friends/Invitations/Invitations';
 import InviteFriends from '../Friends/Invitations/InviteFriends';
 import { useAppSelector } from '../store/hooks';
@@ -14,7 +14,7 @@ const HiddenColumn: React.FC = () => {
           <div className='mx-2'>
             <InviteFriends />
           </div>
-          <div className=''>{user && <ChatBar />}</div>
+          <div className=''>{user && <ChatList />}</div>
           <div className=' '>{user && <Invitations />}</div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: UiSlice = {
   invitationModal: false,
+  loading: false
 };
 
 const uiSlice = createSlice({
@@ -14,6 +15,12 @@ const uiSlice = createSlice({
     },
     hideInvitationModal(state) {
       state.invitationModal = false;
+    },
+    setLoading(state) {
+      state.loading = true;
+    },
+    unsetLoading(state) {
+      state.loading = false;
     },
   },
 });

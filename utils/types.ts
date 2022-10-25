@@ -13,7 +13,7 @@ export type RoomListProps = {
 
 export type User = {
   name: string;
-  photo: string;
+  photos: string;
   email: string;
   googleId?: string;
   id: string;
@@ -42,27 +42,28 @@ export type UserState = {
   user: User | null;
 };
 
+export type FriendSlice = {
+  friends: [];
+  pendingInvitations: [];
+  onlineUsers: [];
+};
 
-export type FriendSlice={
-  friends: [],
-  pendingInvitations: [],
-  onlineUsers: [],
-}
-
-export type Invitation={
+export type Invitation = {
   email: FormDataEntryValue | null;
-}
+};
 
-export type UiSlice={
-  invitationModal:boolean
-}
+export type UiSlice = {
+  invitationModal: boolean;
+  loading:boolean
+};
 
 export type Friend = {
   _id?: string;
   name: string;
+  photos:string
   id: string;
   email: string;
-  isOnline?:boolean
+  isOnline?: boolean;
 };
 export type FriendObj = {
   _id: string;
@@ -70,4 +71,39 @@ export type FriendObj = {
   createdAt: string;
   updatedAt: string;
   __v: number;
+};
+
+export type Receiver ={
+  name: string;
+  photos:string
+  id: string;
+}
+
+export type MessageType = {
+  author: Receiver;
+  content: string;
+  createdAt: string;
+  type: string;
+  updatedAt: string;
+  __v: string;
+  _id: string;
+};
+export type ChatSlice = {
+  messages: MessageType[];
+  chatType: string | null;
+  receiver: Receiver | null;
+};
+
+export type PrivateMessageType = { receiver: Receiver; message: string };
+
+export enum ChatType {
+  PRIVATE = 'PRIVATE',
+  GROUP = 'GROUP',
+}
+export type MessageText = { text: string; bg: string; date: string };
+export type Message = {
+  content: string;
+  chatId: string;
+  date: string;
+  photos:string
 };

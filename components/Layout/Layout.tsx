@@ -117,7 +117,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         </div>
       </Drawer>
       {/* drawer ends */}
-      <Box component='main' className='mx-auto'>
+      <Box component='main' className='mx-auto w-8/12'>
         <Toolbar />
         {/* <DrawerHeader /> */}
         {children}

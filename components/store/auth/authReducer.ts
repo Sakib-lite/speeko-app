@@ -7,16 +7,19 @@ import {
 } from '../../../utils/types';
 import Snackbar from '../../../utils/notistack';
 import AuthService from './auth.service';
+import { uiActions } from '../ui/uiSlice';
 
 
 export const signup = createAsyncThunk(
   'auth/signup',
   async (formData: RegisterFormType, { rejectWithValue, dispatch }) => {
     try {
+      dispatch(uiActions.setLoading())
       const response = await AuthService.signupAPI(formData);
 
       const data = await response.json();
       if (data.status === 'success') {
+        dispatch(uiActions.unsetLoading())
         const { email, password } = formData;
         const userData = { email, password };
         return dispatch(login(userData));
@@ -26,7 +29,7 @@ export const signup = createAsyncThunk(
       return data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-    
+      dispatch(uiActions.unsetLoading())
       Snackbar.error(err.message);
       return rejectWithValue({
         message: 'Failed to Login',

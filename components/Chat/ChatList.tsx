@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../store/hooks';
 import Chat from './Chat';
-import { User } from '../../../utils/types';
+import { User } from '../../utils/types';
 
-const ChatBar = () => {
+const ChatList = () => {
   const friends = useAppSelector((state) => state.friends.friends);
 
   return (
@@ -17,7 +17,12 @@ const ChatBar = () => {
         <List sx={{ width: '100%' }}>
           {friends.map((user: User) => (
             <ListItem key={user.id}>
-              <Chat name={user.name} id={user.id} email={user.email} />
+              <Chat
+                name={user.name}
+                id={user.id}
+                email={user.email}
+                photos={user.photos}
+              />
             </ListItem>
           ))}
         </List>
@@ -26,4 +31,4 @@ const ChatBar = () => {
   );
 };
 
-export default ChatBar;
+export default ChatList;

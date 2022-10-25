@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import friendService from '../../store/friends/friends.service';
+import friendService from '../store/friends/friends.service';
 
 const ITEM_HEIGHT = 25;
 
