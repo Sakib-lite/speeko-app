@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { uiActions } from '../store/ui/uiSlice';
 import { sendInvitation } from '../store/friends/friendsReducer';
 import Snackbar from '../../utils/notistack';
+import SimpleBackdrop from '../Layout/Backdrop';
 
 const style = {
   position: 'absolute',
@@ -29,6 +30,7 @@ const style = {
 export default function InviteFriendModal() {
   const dispatch = useAppDispatch();
   const open = useAppSelector((state) => state.ui.invitationModal);
+  const loading=useAppSelector(state=>state.ui.loading)
   const handleClose = () => dispatch(uiActions.hideInvitationModal());
   const emailRef = useRef<HTMLInputElement | null>(null);
 
@@ -54,8 +56,10 @@ export default function InviteFriendModal() {
         <Fade in={open}>
           <Box
             sx={style}
-            className='bg-gradient-to-r from-cyan-300 to-blue-300 rounded-lg'
+            className='bg-gradient-to-r from-gray-200 via-slate-300 to-stone-200'
           >
+            {/* loading  */}
+                {loading &&  <SimpleBackdrop/>} 
             <form onSubmit={submitHandler}>
               {' '}
               <Typography

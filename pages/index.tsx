@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import type { NextPage } from 'next';
 import Layout from '../components/Layout/Layout';
 import { useAppSelector } from '../components/store/hooks';
-import Messenger from '../components/Chat/Messanger/Messenger';
-import ChatIcon from '../components/Chat/Messanger/ChatIcon';
+import Messenger from '../components/Chat/Messenger/Messenger';
+import ChatIcon from '../components/Chat/Messenger/ChatIcon';
 
 const Home: NextPage = () => {
 

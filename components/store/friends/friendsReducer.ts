@@ -3,21 +3,26 @@ import Snackbar from './../../../utils/notistack';
 import FriendService from './friends.service';
 import { FormError, Invitation } from '../../../utils/types';
 import { getUser } from '../auth/authReducer';
+import { uiActions } from '../ui/uiSlice';
 
 export const sendInvitation = createAsyncThunk(
   'friends/send-invite',
-  async (form: Invitation, { rejectWithValue }) => {
+  async (form: Invitation, { rejectWithValue,dispatch }) => {
     try {
+      dispatch(uiActions.setLoading())
       const response = await FriendService.sendInvitationAPI(form);
-
+      
       const data = await response.json();
-
+      
       if (data.status === 'success') {
+        dispatch(uiActions.unsetLoading())
+        dispatch(uiActions.hideInvitationModal())
         Snackbar.success(data.message);
       }
       if (response.ok === false) throw new Error(`${data.message}`);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      dispatch(uiActions.unsetLoading())
       Snackbar.error(error.message);
 
       return rejectWithValue({
