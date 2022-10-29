@@ -3,6 +3,7 @@ import { ChatSlice } from '../../../utils/types';
 
 const initialState: ChatSlice = {
   messages: [],
+  lastMessages: [],
   chatType: null,
   receiver: null,
 };
@@ -17,6 +18,9 @@ const chatSlice = createSlice({
     },
     getMessages(state,action){
       state.messages=action.payload.messages
+    },
+    getLastMessages(state,action){
+      state.lastMessages=action.payload.lastMessages
     }
   },
 });

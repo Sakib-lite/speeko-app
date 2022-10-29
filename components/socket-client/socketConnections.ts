@@ -36,6 +36,11 @@ export const connectToSocketServer = (user: User) => {
   socket.on('private-chat-history', (data) => {
     store.dispatch(chatActions.getMessages(data));
   });
+
+socket.on('last-messages',(data)=>{
+  store.dispatch(chatActions.getLastMessages(data))
+})
+
   socket.on('disconnect', () => {
     console.log(socket?.id); // undefined
   });

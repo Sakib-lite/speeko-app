@@ -90,6 +90,7 @@ export type MessageType = {
 };
 export type ChatSlice = {
   messages: MessageType[];
+  lastMessages:any[]
   chatType: string | null;
   receiver: Receiver | null;
 };

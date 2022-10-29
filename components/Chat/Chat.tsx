@@ -7,7 +7,17 @@ import { chatActions } from '../store/chat/chatSlice';
 import ChatAvatar from './ChatAvatar';
 
 const Chat = ({ name, id, photos }: Friend) => {
+  console.log(id, name);
+
   const onlineUsers = useAppSelector((state) => state.friends.onlineUsers);
+  const lastMessages = useAppSelector((state) => state.chat.lastMessages);
+
+  const message = lastMessages.find((msg) =>
+    msg.participants.some((msgId: string) => msgId === id)
+  );
+
+  let content = 'No message';
+  if (message) content = message.message.content; //sh0owing last message as preview
 
   const dispatch = useAppDispatch();
   const isOnline = onlineUsers.find((user: User) => user.id === id);
@@ -37,7 +47,7 @@ const Chat = ({ name, id, photos }: Friend) => {
               <span className='text-gray-800 '>{name}</span>
             </div>
             <div>
-              <small className='text-gray-600'>Yes</small>
+              <small className='text-gray-600'>{content}</small>
             </div>
           </div>
         </button>
