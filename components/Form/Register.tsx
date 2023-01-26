@@ -85,7 +85,7 @@ export default function Login() {
 
 // signup using google acc. This link will be redireced to google acc.
   const googleHandler = async () => {
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = 'web-production-c89b.up.railway.app/auth/google';
   };
 
   return (

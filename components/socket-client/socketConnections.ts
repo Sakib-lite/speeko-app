@@ -8,7 +8,7 @@ import { chatActions } from '../store/chat/chatSlice';
 let socket: Socket<DefaultEventsMap, DefaultEventsMap> | null = null;
 
 export const connectToSocketServer = (user: User) => {
-  socket = io('http://localhost:5000', {
+  socket = io('web-production-c89b.up.railway.app', {
     auth: {
       user,
     },

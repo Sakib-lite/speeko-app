@@ -32,7 +32,7 @@ export default function Login() {
   }, []);
 
   const googleHandler = async () => {
-    window.location.href = 'http://localhost:5000/api/auth/google'
+    window.location.href = 'web-production-c89b.up.railway.app/api/auth/google'
   };
 
   return (

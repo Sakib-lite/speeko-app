@@ -1,7 +1,7 @@
 import { Invitation } from '../../../utils/types';
 import Snackbar from './../../../utils/notistack';
 
-const URL = 'http://localhost:5000';
+const URL = 'web-production-c89b.up.railway.app';
 
 export const sendInvitationAPI = async (form: Invitation) => {
   const response = await fetch(`${URL}/api/friend/invite`, {

@@ -1,6 +1,6 @@
 import { LoginFormType, RegisterFormType } from '../../../utils/types';
 
-const URL = 'http://localhost:5000';
+const URL = 'web-production-c89b.up.railway.app';
 
 const signupAPI = async (formData: RegisterFormType) => {
   const response = await fetch(`${URL}/api/auth/signup`, {
